@@ -1,9 +1,16 @@
 // import Memo from '../model'
 import express from 'express'
 
+interface MemoModel {
+    title: string,
+    description: string,
+    background: string
+}
+// 메모 모델을 임시로 interface 처리 만약 DB 연결 모델이 도입되면 이 내용은 삭제 or 주석 처리
+
 let router = express.Router();
 
-let Memo = [
+let Memo: MemoModel[] = [
     {
         title: 'title1',
         description: 'description1',
