@@ -21,27 +21,29 @@ describe('tset to server data get successfully', () => {
     // 컴포넌트 단위의 UI만 그려질때 대기하고 전체 페이지는 정상적으로 로드될 수 있도록 하기 위함임
 
     // 모든 테스트는 우선적으로 성공인지를 확인하는 STATUS CODE인 200을 리턴하는지만 테스트 하였음
-    test('should get data', () => {
+    // 각 테스트의 경우 API 서버이므로 async 로 처리하여야 open handle 이슈를 막을 수 있음. 서버 내부에 자체적인 listen의 경우 그냥 두더라도,
+    // 각 테스트 단위에서는 이를 막기 위한 처리가 필요함.
+    test('should get data', async () => {
         request(app)
             .get('/memos')
             .expect(200)
     })
 
-    test('should post data', () => {
+    test('should post data', async () => {
         request(app)
             .post('/memo')
             .send({ title: 'hello', description: 'hi', color: '#fff' })
             .expect(200)
     })
     
-    test('should delete data', () => {
+    test('should delete data', async () => {
         request(app)
             .delete('/memo')
             .send({ title: 'title1' })
             .expect(200)
     })
     
-    test('should put data', () => {
+    test('should put data', async () => {
         request(app)
             .put('/memo')
             .send({ title: 'title1', description: 'hi', color: '#fff' })
